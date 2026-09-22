@@ -4,11 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Control Ejecutivo de Sanciones 2026</title>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <style>
     :root {
       --ink: #101828;
@@ -18,68 +21,152 @@
       --mai: #4f46e5;
       --mc: #d97706;
     }
-    * { box-sizing: border-box; }
-    body {
-      font-family: "Manrope", sans-serif;
-      background: radial-gradient(circle at 7% 0%, rgba(79, 70, 229, 0.09), transparent 26rem),
-                  radial-gradient(circle at 100% 15%, rgba(217, 119, 6, 0.08), transparent 24rem),
-                  var(--canvas);
-      color: var(--ink);
-      margin: 0;
+
+    * {
+      box-sizing: border-box;
     }
+
+    body {
+      margin: 0;
+      font-family: "Manrope", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 7% 0%, rgba(79, 70, 229, 0.10), transparent 26rem),
+        radial-gradient(circle at 100% 15%, rgba(217, 119, 6, 0.09), transparent 24rem),
+        var(--canvas);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
     .brand-grid {
-      background-image: linear-gradient(rgba(16, 24, 40, 0.035) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(16, 24, 40, 0.035) 1px, transparent 1px);
+      background-image:
+        linear-gradient(rgba(16, 24, 40, 0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(16, 24, 40, 0.035) 1px, transparent 1px);
       background-size: 30px 30px;
     }
+
     .executive-card {
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid #e4e7ec;
       box-shadow: 0 14px 36px rgba(16, 24, 40, 0.07);
     }
-    .company-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-    .company-card:hover { transform: translateY(-5px); box-shadow: 0 22px 35px rgba(16, 24, 40, 0.12); }
-    .incident-row { transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease; }
-    .incident-row:hover { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(16, 24, 40, 0.08); }
+
+    .company-card {
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .company-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 22px 35px rgba(16, 24, 40, 0.12);
+    }
+
+    .incident-row {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .incident-row:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 22px rgba(16, 24, 40, 0.08);
+    }
+
     .plate {
-      width: 122px; min-width: 122px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
-      position: relative; padding-left: 7px; border: 2px solid #24314f; border-radius: 6px;
+      width: 122px;
+      min-width: 122px;
+      height: 38px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding-left: 7px;
+      border: 2px solid #24314f;
+      border-radius: 6px;
       background: linear-gradient(180deg, #ffffff 0%, #f2f5fb 100%);
-      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9), 0 3px 7px rgba(16, 24, 40, 0.09);
-      color: #172554; font-family: "DM Mono", monospace; font-size: 0.88rem; font-weight: 500; letter-spacing: 0.08em;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.9), 0 3px 7px rgba(16,24,40,0.09);
+      color: #172554;
+      font-family: "DM Mono", monospace;
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
     }
+
     .plate::before {
-      content: "E"; position: absolute; left: 3px; top: 3px; bottom: 3px; width: 12px;
-      display: flex; align-items: center; justify-content: center; border-radius: 2px;
-      background: #123b9c; color: #ffffff; font-family: Arial, sans-serif; font-size: 7px;
+      content: "E";
+      position: absolute;
+      left: 3px;
+      top: 3px;
+      bottom: 3px;
+      width: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 2px;
+      background: #123b9c;
+      color: white;
+      font-family: Arial, sans-serif;
+      font-size: 7px;
+      letter-spacing: 0;
     }
-    .summary-value { font-variant-numeric: tabular-nums; }
-    .progress-track { height: 9px; overflow: hidden; border-radius: 999px; background: #eef1f6; }
-    .chart-wrap { height: 280px; position: relative; }
-    .hidden { display: none !important; }
+
+    .summary-value {
+      font-variant-numeric: tabular-nums;
+    }
+
+    .progress-track {
+      height: 9px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #eef1f6;
+    }
+
+    .chart-wrap {
+      height: 280px;
+      position: relative;
+    }
+
+    @media (max-width: 640px) {
+      .plate {
+        width: 104px;
+        min-width: 104px;
+        font-size: 0.76rem;
+      }
+    }
   </style>
 </head>
+
 <body class="min-h-screen antialiased">
+
   <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-10">
-    
-    <!-- PANTALLA PRINCIPAL -->
+
+    <!-- PÁGINA PRINCIPAL -->
     <section id="view-home">
+
       <header class="brand-grid rounded-[28px] border border-slate-200 bg-white/70 px-6 py-7 sm:px-9 sm:py-9 mb-6 overflow-hidden relative">
         <div class="absolute right-0 top-0 h-full w-1.5 bg-gradient-to-b from-indigo-600 via-slate-800 to-amber-600"></div>
+
         <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
           <div>
             <div class="flex items-center gap-3 text-[11px] uppercase tracking-[.18em] font-extrabold text-slate-500">
               <span class="inline-block h-2 w-2 rounded-full bg-emerald-500"></span>
               Informe ejecutivo · Ejercicio 2026
             </div>
-            <h1 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950">Control de sanciones</h1>
-            <p class="mt-2 max-w-xl text-sm sm:text-base text-slate-600">Visión consolidada de incidencias, exposición económica y concentración por sociedad y vehículo.</p>
+
+            <h1 class="mt-4 text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950">
+              Control de sanciones
+            </h1>
+
+            <p class="mt-2 max-w-xl text-sm sm:text-base text-slate-600">
+              Visión consolidada de incidencias, exposición económica y concentración por sociedad y vehículo.
+            </p>
           </div>
+
           <div class="flex gap-6 sm:gap-9 text-sm">
             <div>
               <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">Corte</p>
               <p class="mt-1 font-extrabold text-slate-800">31 dic. 2026</p>
             </div>
+
             <div>
               <p class="text-slate-400 text-xs font-bold uppercase tracking-wider">Estado</p>
               <p class="mt-1 font-extrabold text-emerald-700">Actualizado</p>
@@ -89,64 +176,108 @@
       </header>
 
       <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+
         <article class="md:col-span-2 rounded-[26px] bg-slate-950 p-6 sm:p-8 text-white shadow-xl overflow-hidden relative">
           <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-indigo-500/25 blur-3xl"></div>
           <div class="absolute -left-16 -bottom-24 h-56 w-56 rounded-full bg-amber-500/15 blur-3xl"></div>
+
           <div class="relative flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5">
             <div>
-              <p class="text-[11px] font-extrabold uppercase tracking-[.18em] text-indigo-200">Exposición consolidada</p>
-              <p class="summary-value mt-2 text-5xl sm:text-6xl font-extrabold tracking-tight">645,00 <span class="text-2xl text-slate-400">€</span></p>
-              <p class="mt-3 text-sm text-slate-300">10 sanciones registradas · 3 vehículos afectados</p>
+              <p class="text-[11px] font-extrabold uppercase tracking-[.18em] text-indigo-200">
+                Exposición consolidada
+              </p>
+
+              <p class="summary-value mt-2 text-5xl sm:text-6xl font-extrabold tracking-tight">
+                545,00 <span class="text-2xl text-slate-400">€</span>
+              </p>
+
+              <p class="mt-3 text-sm text-slate-300">
+                9 sanciones registradas · 3 vehículos afectados
+              </p>
             </div>
-            <button onclick="showView('view-summary')" class="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-indigo-50 transition shadow-lg">Ver radiografía ejecutiva →</button>
+
+            <button onclick="showView('view-summary')"
+              class="rounded-xl bg-white px-5 py-3 text-sm font-extrabold text-slate-900 hover:bg-indigo-50 transition shadow-lg">
+              Ver radiografía ejecutiva →
+            </button>
           </div>
         </article>
+
         <article class="executive-card rounded-[26px] p-6 flex flex-col justify-between">
           <div>
-            <p class="text-[11px] font-extrabold uppercase tracking-[.15em] text-slate-400">Foco de atención</p>
-            <p class="mt-4 text-3xl font-extrabold text-slate-950">76,7%</p>
-            <p class="mt-1 text-sm leading-6 text-slate-600">del importe se concentra en <strong class="text-slate-800">MC</strong>.</p>
+            <p class="text-[11px] font-extrabold uppercase tracking-[.15em] text-slate-400">
+              Foco de atención
+            </p>
+
+            <p class="mt-4 text-3xl font-extrabold text-slate-950">72,5%</p>
+
+            <p class="mt-1 text-sm leading-6 text-slate-600">
+              del importe se concentra en <strong class="text-slate-800">MC</strong>.
+            </p>
           </div>
+
           <div class="mt-6 border-t border-slate-100 pt-4 text-xs text-slate-500">
-            Principal vehículo: <span class="font-extrabold text-slate-800">7424 MCZ</span>
+            Principal vehículo:
+            <span class="font-extrabold text-slate-800">7424 MCZ</span>
           </div>
         </article>
       </section>
 
       <section class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        <button onclick="showView('view-mai')" class="company-card text-left executive-card rounded-[26px] p-6 sm:p-7 border-l-4 border-l-indigo-600">
+
+        <button onclick="showView('view-mai')"
+          class="company-card text-left executive-card rounded-[26px] p-6 sm:p-7 border-l-4 border-l-indigo-600">
           <div class="flex items-start justify-between gap-5">
             <div>
-              <p class="inline-flex rounded-full bg-indigo-50 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-indigo-700">Sociedad A</p>
+              <p class="inline-flex rounded-full bg-indigo-50 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-indigo-700">
+                Sociedad A
+              </p>
+
               <h2 class="mt-4 text-3xl font-extrabold tracking-tight">MAI</h2>
-              <p class="mt-1 text-sm text-slate-500">2 incidencias · 2 vehículos</p>
+
+              <p class="mt-1 text-sm text-slate-500">
+                2 incidencias · 2 vehículos
+              </p>
             </div>
+
             <span class="rounded-xl bg-indigo-50 p-3 text-xl text-indigo-700">↗</span>
           </div>
+
           <div class="mt-7 flex items-end justify-between border-t border-slate-100 pt-5">
             <div>
               <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Importe</p>
               <p class="summary-value mt-1 text-3xl font-extrabold">150,00 €</p>
             </div>
-            <p class="text-sm font-extrabold text-indigo-700">23,3% del total</p>
+
+            <p class="text-sm font-extrabold text-indigo-700">27,5% del total</p>
           </div>
         </button>
 
-        <button onclick="showView('view-mc')" class="company-card text-left executive-card rounded-[26px] p-6 sm:p-7 border-l-4 border-l-amber-500">
+        <button onclick="showView('view-mc')"
+          class="company-card text-left executive-card rounded-[26px] p-6 sm:p-7 border-l-4 border-l-amber-500">
           <div class="flex items-start justify-between gap-5">
             <div>
-              <p class="inline-flex rounded-full bg-amber-50 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-amber-700">Sociedad B</p>
+              <p class="inline-flex rounded-full bg-amber-50 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-amber-700">
+                Sociedad B
+              </p>
+
               <h2 class="mt-4 text-3xl font-extrabold tracking-tight">MC</h2>
-              <p class="mt-1 text-sm text-slate-500">8 incidencias · 2 vehículos</p>
+
+              <p class="mt-1 text-sm text-slate-500">
+                7 incidencias · 2 vehículos
+              </p>
             </div>
+
             <span class="rounded-xl bg-amber-50 p-3 text-xl text-amber-700">↗</span>
           </div>
+
           <div class="mt-7 flex items-end justify-between border-t border-slate-100 pt-5">
             <div>
               <p class="text-xs font-bold uppercase tracking-wider text-slate-400">Importe</p>
-              <p class="summary-value mt-1 text-3xl font-extrabold">495,00 €</p>
+              <p class="summary-value mt-1 text-3xl font-extrabold">395,00 €</p>
             </div>
-            <p class="text-sm font-extrabold text-amber-700">76,7% del total</p>
+
+            <p class="text-sm font-extrabold text-amber-700">72,5% del total</p>
           </div>
         </button>
       </section>
@@ -154,161 +285,331 @@
 
     <!-- DETALLE MAI -->
     <section id="view-mai" class="hidden">
+
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
-        <button onclick="showView('view-home')" class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-slate-700 shadow-sm">← Volver al resumen</button>
+        <button onclick="showView('view-home')"
+          class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-slate-700 shadow-sm">
+          ← Volver al resumen
+        </button>
+
         <div class="text-left sm:text-right">
           <p class="text-xs font-bold uppercase tracking-wider text-slate-400">MAI · Total</p>
           <p class="summary-value text-2xl font-extrabold text-indigo-700">150,00 €</p>
         </div>
       </div>
+
       <div class="executive-card rounded-[28px] overflow-hidden">
         <div class="bg-gradient-to-r from-indigo-700 to-indigo-600 px-6 py-7 sm:px-8 text-white">
           <p class="text-xs font-bold uppercase tracking-[.16em] text-indigo-200">Detalle operativo</p>
           <h2 class="mt-2 text-3xl font-extrabold">Sanciones · MAI</h2>
+          <p class="mt-2 text-sm text-indigo-100">
+            Matrículas agrupadas para facilitar la lectura y detectar patrones.
+          </p>
         </div>
+
         <div class="p-5 sm:p-7 space-y-6">
+
           <div>
-            <div class="mb-3 flex items-center gap-3"><span class="plate">1580 NDP</span><span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">1 incidencia · 50,00 €</span></div>
-            <button onclick="toggleAccordion('mai-1')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+            <div class="mb-3 flex items-center gap-3">
+              <span class="plate">1580 NDP</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                1 incidencia · 50,00 €
+              </span>
+            </div>
+
+            <button onclick="toggleAccordion('mai-1')"
+              class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
               <div class="flex items-center justify-between gap-4">
-                <div><p class="font-extrabold text-slate-800">Exceso de velocidad · 112 km/h en vía limitada a 100 km/h</p><p class="mt-1 text-xs text-slate-500">09/07/2026 · Vía A-67</p></div>
-                <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span><span id="icon-mai-1" class="text-slate-400">⌄</span></div>
+                <div>
+                  <p class="font-extrabold text-slate-800">
+                    Exceso de velocidad · 112 km/h en vía limitada a 100 km/h
+                  </p>
+                  <p class="mt-1 text-xs text-slate-500">09/07/2026 · Vía A-67, P.K.</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
+                  <span id="icon-mai-1" class="text-slate-400">⌄</span>
+                </div>
               </div>
+
               <div id="mai-1" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">09/07/2026</p></div>
-                <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-67</p></div>
-                <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Velocidad</p></div>
+                <div>
+                  <span class="text-slate-400">Fecha</span>
+                  <p class="mt-1 font-bold text-slate-700">09/07/2026</p>
+                </div>
+                <div>
+                  <span class="text-slate-400">Ubicación</span>
+                  <p class="mt-1 font-bold text-slate-700">Vía A-67, P.K.</p>
+                </div>
+                <div>
+                  <span class="text-slate-400">Tipología</span>
+                  <p class="mt-1 font-bold text-slate-700">Velocidad</p>
+                </div>
               </div>
             </button>
           </div>
+
           <div>
-            <div class="mb-3 flex items-center gap-3"><span class="plate">7452 MNH</span><span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">1 incidencia · 100,00 €</span></div>
-            <button onclick="toggleAccordion('mai-2')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+            <div class="mb-3 flex items-center gap-3">
+              <span class="plate">7452 MNH</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                1 incidencia · 100,00 €
+              </span>
+            </div>
+
+            <button onclick="toggleAccordion('mai-2')"
+              class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
               <div class="flex items-center justify-between gap-4">
-                <div><p class="font-extrabold text-slate-800">ITV caducada</p><p class="mt-1 text-xs text-slate-500">25/03/2026</p></div>
-                <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">100,00 €</span><span id="icon-mai-2" class="text-slate-400">⌄</span></div>
+                <div>
+                  <p class="font-extrabold text-slate-800">
+                    ITV caducada desde el 23/09/2025
+                  </p>
+                  <p class="mt-1 text-xs text-slate-500">
+                    25/03/2026 · Ubicación no especificada
+                  </p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">100,00 €</span>
+                  <span id="icon-mai-2" class="text-slate-400">⌄</span>
+                </div>
               </div>
+
               <div id="mai-2" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">25/03/2026</p></div>
-                <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">No especificada</p></div>
-                <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">ITV</p></div>
+                <div>
+                  <span class="text-slate-400">Fecha</span>
+                  <p class="mt-1 font-bold text-slate-700">25/03/2026</p>
+                </div>
+                <div>
+                  <span class="text-slate-400">Ubicación</span>
+                  <p class="mt-1 font-bold text-slate-700">No especificada</p>
+                </div>
+                <div>
+                  <span class="text-slate-400">Tipología</span>
+                  <p class="mt-1 font-bold text-slate-700">ITV</p>
+                </div>
               </div>
             </button>
           </div>
+
         </div>
       </div>
     </section>
 
     <!-- DETALLE MC -->
     <section id="view-mc" class="hidden">
+
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
-        <button onclick="showView('view-home')" class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-slate-700 shadow-sm">← Volver al resumen</button>
+        <button onclick="showView('view-home')"
+          class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-slate-700 shadow-sm">
+          ← Volver al resumen
+        </button>
+
         <div class="text-left sm:text-right">
           <p class="text-xs font-bold uppercase tracking-wider text-slate-400">MC · Total</p>
-          <p class="summary-value text-2xl font-extrabold text-amber-700">495,00 €</p>
+          <p class="summary-value text-2xl font-extrabold text-amber-700">395,00 €</p>
         </div>
       </div>
+
       <div class="executive-card rounded-[28px] overflow-hidden">
         <div class="bg-gradient-to-r from-amber-600 to-orange-500 px-6 py-7 sm:px-8 text-white">
           <p class="text-xs font-bold uppercase tracking-[.16em] text-amber-100">Detalle operativo</p>
           <h2 class="mt-2 text-3xl font-extrabold">Sanciones · MC</h2>
+          <p class="mt-2 text-sm text-amber-50">
+            Agrupación por vehículo para identificar recurrencias de forma inmediata.
+          </p>
         </div>
+
         <div class="p-5 sm:p-7 space-y-6">
+
           <div>
             <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-3"><span class="plate">7424 MCZ</span><span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">7 incidencias</span></div>
-              <span class="summary-value rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">450,00 €</span>
+              <div class="flex items-center gap-3">
+                <span class="plate">7424 MCZ</span>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                  6 incidencias
+                </span>
+              </div>
+
+              <span class="summary-value rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
+                350,00 €
+              </span>
             </div>
+
             <div class="space-y-3">
-              <button onclick="toggleAccordion('mc-new')" class="incident-row w-full text-left rounded-2xl border border-amber-300 bg-amber-50/50 p-4 sm:p-5">
+
+              <button onclick="toggleAccordion('mc-1')"
+                class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
                 <div class="flex items-center justify-between gap-4">
-                  <div><p class="font-extrabold text-slate-900">Ayuntamiento de Madrid (Abierto 21/09/2026)</p><p class="mt-1 text-xs text-amber-800 font-semibold">Plazo reducido: 100 € (hasta 12/10/2026) / Total: 200 €</p></div>
-                  <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">200,00 €</span><span id="icon-mc-new" class="text-slate-400">⌄</span></div>
+                  <div>
+                    <p class="font-extrabold text-slate-800">Estacionamiento sobre la acera</p>
+                    <p class="mt-1 text-xs text-slate-500">03/09/2026 · Vía pública</p>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">100,00 €</span>
+                    <span id="icon-mc-1" class="text-slate-400">⌄</span>
+                  </div>
                 </div>
-                <div id="mc-new" class="hidden mt-4 border-t border-amber-200 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-                  <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">21/09/2026</p></div>
-                  <div><span class="text-slate-400">Vencimiento reducida</span><p class="mt-1 font-bold text-slate-700">12/10/2026 (100 €)</p></div>
-                  <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Ayuntamiento de Madrid</p></div>
-                </div>
-              </button>
-              <button onclick="toggleAccordion('mc-1')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
-                <div class="flex items-center justify-between gap-4">
-                  <div><p class="font-extrabold text-slate-800">Estacionamiento sobre la acera</p><p class="mt-1 text-xs text-slate-500">03/09/2026 · C/ Juan Ramón Jiménez</p></div>
-                  <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">100,00 €</span><span id="icon-mc-1" class="text-slate-400">⌄</span></div>
-                </div>
+
                 <div id="mc-1" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">03/09/2026</p></div>
-                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">C/ Juan Ramón Jiménez</p></div>
+                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía pública</p></div>
                   <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Estacionamiento</p></div>
                 </div>
               </button>
-              <button onclick="toggleAccordion('mc-2')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+
+              <button onclick="toggleAccordion('mc-2')"
+                class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
                 <div class="flex items-center justify-between gap-4">
-                  <div><p class="font-extrabold text-slate-800">Exceso de velocidad · 139 km/h en vía limitada a 120 km/h</p><p class="mt-1 text-xs text-slate-500">03/09/2026 · Vía A-5</p></div>
-                  <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span><span id="icon-mc-2" class="text-slate-400">⌄</span></div>
+                  <div>
+                    <p class="font-extrabold text-slate-800">
+                      Exceso de velocidad · 139 km/h en vía limitada a 120 km/h
+                    </p>
+                    <p class="mt-1 text-xs text-slate-500">03/09/2026 · Vía A-5, P.K.</p>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
+                    <span id="icon-mc-2" class="text-slate-400">⌄</span>
+                  </div>
                 </div>
+
                 <div id="mc-2" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">03/09/2026</p></div>
-                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-5</p></div>
+                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-5, P.K.</p></div>
                   <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Velocidad</p></div>
                 </div>
               </button>
-              <button onclick="toggleAccordion('mc-3')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+
+              <button onclick="toggleAccordion('mc-3')"
+                class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
                 <div class="flex items-center justify-between gap-4">
-                  <div><p class="font-extrabold text-slate-800">Exceso de velocidad · 133 km/h en vía limitada a 120 km/h</p><p class="mt-1 text-xs text-slate-500">25/08/2026 · Vía A-1</p></div>
-                  <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span><span id="icon-mc-3" class="text-slate-400">⌄</span></div>
+                  <div>
+                    <p class="font-extrabold text-slate-800">
+                      Exceso de velocidad · 133 km/h en vía limitada a 120 km/h
+                    </p>
+                    <p class="mt-1 text-xs text-slate-500">25/08/2026 · Vía A-1, P.K.</p>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
+                    <span id="icon-mc-3" class="text-slate-400">⌄</span>
+                  </div>
                 </div>
+
                 <div id="mc-3" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">25/08/2026</p></div>
-                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-1</p></div>
+                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-1, P.K.</p></div>
                   <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Velocidad</p></div>
                 </div>
               </button>
-              <button onclick="toggleAccordion('mc-4')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+
+              <button onclick="toggleAccordion('mc-4')"
+                class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
                 <div class="flex items-center justify-between gap-4">
-                  <div><p class="font-extrabold text-slate-800">Exceso de velocidad · 142 km/h en vía limitada a 120 km/h</p><p class="mt-1 text-xs text-slate-500">02/08/2026 · Vía A-381</p></div>
-                  <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span><span id="icon-mc-4" class="text-slate-400">⌄</span></div>
+                  <div>
+                    <p class="font-extrabold text-slate-800">
+                      Exceso de velocidad · 142 km/h en vía limitada a 120 km/h
+                    </p>
+                    <p class="mt-1 text-xs text-slate-500">02/08/2026 · Vía A-381, P.K.</p>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
+                    <span id="icon-mc-4" class="text-slate-400">⌄</span>
+                  </div>
                 </div>
+
                 <div id="mc-4" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">02/08/2026</p></div>
-                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-381</p></div>
+                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-381, P.K.</p></div>
                   <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Velocidad</p></div>
                 </div>
               </button>
-              <button onclick="toggleAccordion('mc-5')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+
+              <button onclick="toggleAccordion('mc-5')"
+                class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
                 <div class="flex items-center justify-between gap-4">
-                  <div><p class="font-extrabold text-slate-800">Exceso de velocidad · 97 km/h en vía limitada a 80 km/h</p><p class="mt-1 text-xs text-slate-500">30/07/2026 · Vía A-381</p></div>
-                  <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span><span id="icon-mc-5" class="text-slate-400">⌄</span></div>
+                  <div>
+                    <p class="font-extrabold text-slate-800">
+                      Exceso de velocidad · 97 km/h en vía limitada a 80 km/h
+                    </p>
+                    <p class="mt-1 text-xs text-slate-500">30/07/2026 · Vía A-381, P.K.</p>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
+                    <span id="icon-mc-5" class="text-slate-400">⌄</span>
+                  </div>
                 </div>
+
                 <div id="mc-5" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">30/07/2026</p></div>
-                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-381</p></div>
+                  <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía A-381, P.K.</p></div>
                   <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Velocidad</p></div>
                 </div>
               </button>
-              <button onclick="toggleAccordion('mc-7')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+
+              <button onclick="toggleAccordion('mc-7')"
+                class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
                 <div class="flex items-center justify-between gap-4">
-                  <div><p class="font-extrabold text-slate-800">Exceso de velocidad · 136 km/h en vía limitada a 120 km/h</p><p class="mt-1 text-xs text-slate-500">31/01/2026</p></div>
-                  <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span><span id="icon-mc-7" class="text-slate-400">⌄</span></div>
+                  <div>
+                    <p class="font-extrabold text-slate-800">
+                      Exceso de velocidad · 136 km/h en vía limitada a 120 km/h
+                    </p>
+                    <p class="mt-1 text-xs text-slate-500">
+                      31/01/2026 · Ubicación no especificada
+                    </p>
+                  </div>
+
+                  <div class="flex items-center gap-3">
+                    <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
+                    <span id="icon-mc-7" class="text-slate-400">⌄</span>
+                  </div>
                 </div>
+
                 <div id="mc-7" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                   <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">31/01/2026</p></div>
                   <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">No especificada</p></div>
                   <div><span class="text-slate-400">Tipología</span><p class="mt-1 font-bold text-slate-700">Velocidad</p></div>
                 </div>
               </button>
+
             </div>
           </div>
+
           <div>
             <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
-              <div class="flex items-center gap-3"><span class="plate">9082 NBT</span><span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">1 incidencia</span></div>
-              <span class="summary-value rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">45,00 €</span>
-            </div>
-            <button onclick="toggleAccordion('mc-6')" class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
-              <div class="flex items-center justify-between gap-4">
-                <div><p class="font-extrabold text-slate-800">Estacionamiento en lugar prohibido</p><p class="mt-1 text-xs text-slate-500">15/06/2026</p></div>
-                <div class="flex items-center gap-3"><span class="summary-value whitespace-nowrap font-extrabold text-rose-700">45,00 €</span><span id="icon-mc-6" class="text-slate-400">⌄</span></div>
+              <div class="flex items-center gap-3">
+                <span class="plate">9082 NBT</span>
+                <span class="text-xs font-extrabold uppercase tracking-wider text-slate-500">
+                  1 incidencia
+                </span>
               </div>
+
+              <span class="summary-value rounded-full bg-amber-50 px-3 py-1 text-xs font-extrabold text-amber-800">
+                45,00 €
+              </span>
+            </div>
+
+            <button onclick="toggleAccordion('mc-6')"
+              class="incident-row w-full text-left rounded-2xl border border-slate-200 bg-white p-4 sm:p-5">
+              <div class="flex items-center justify-between gap-4">
+                <div>
+                  <p class="font-extrabold text-slate-800">
+                    Estacionamiento en lugar prohibido
+                  </p>
+                  <p class="mt-1 text-xs text-slate-500">15/06/2026 · Vía pública</p>
+                </div>
+
+                <div class="flex items-center gap-3">
+                  <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">45,00 €</span>
+                  <span id="icon-mc-6" class="text-slate-400">⌄</span>
+                </div>
+              </div>
+
               <div id="mc-6" class="hidden mt-4 border-t border-slate-100 pt-4 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
                 <div><span class="text-slate-400">Fecha</span><p class="mt-1 font-bold text-slate-700">15/06/2026</p></div>
                 <div><span class="text-slate-400">Ubicación</span><p class="mt-1 font-bold text-slate-700">Vía pública</p></div>
@@ -316,87 +617,211 @@
               </div>
             </button>
           </div>
+
         </div>
       </div>
     </section>
 
     <!-- ANÁLISIS EJECUTIVO -->
     <section id="view-summary" class="hidden">
+
       <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-5">
-        <button onclick="showView('view-home')" class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-slate-700 shadow-sm">← Volver al resumen</button>
-        <p class="text-sm font-bold text-slate-500">Radiografía de costes y recurrencia</p>
+        <button onclick="showView('view-home')"
+          class="inline-flex w-fit items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-xs font-extrabold uppercase tracking-wider text-slate-700 shadow-sm">
+          ← Volver al resumen
+        </button>
+
+        <p class="text-sm font-bold text-slate-500">
+          Radiografía de costes y recurrencia
+        </p>
       </div>
+
       <div class="grid grid-cols-1 xl:grid-cols-5 gap-5">
+
         <section class="xl:col-span-3 executive-card rounded-[28px] p-6 sm:p-8">
           <div class="flex items-start justify-between gap-5">
             <div>
-              <p class="text-xs font-extrabold uppercase tracking-[.16em] text-slate-400">Distribución del importe</p>
-              <h2 class="mt-2 text-2xl font-extrabold">Peso económico por sociedad</h2>
+              <p class="text-xs font-extrabold uppercase tracking-[.16em] text-slate-400">
+                Distribución del importe
+              </p>
+
+              <h2 class="mt-2 text-2xl font-extrabold">
+                Peso económico por sociedad
+              </h2>
             </div>
-            <p class="summary-value text-xl font-extrabold text-slate-900">645,00 €</p>
+
+            <p class="summary-value text-xl font-extrabold text-slate-900">
+              545,00 €
+            </p>
           </div>
-          <div class="chart-wrap mt-5"><canvas id="expenseChart"></canvas></div>
+
+          <div class="chart-wrap mt-5">
+            <canvas id="expenseChart"></canvas>
+          </div>
+
           <div class="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-3">
+
             <div class="rounded-2xl border border-indigo-100 bg-indigo-50/60 p-4">
-              <div class="flex justify-between"><span class="font-extrabold text-indigo-950">MAI</span><span class="font-extrabold text-indigo-700">23,3%</span></div>
-              <div class="progress-track mt-3"><div class="h-full rounded-full bg-indigo-600" style="width: 23.3%;"></div></div>
-              <p class="summary-value mt-2 text-sm font-bold text-indigo-950">150,00 € · 2 incidencias</p>
+              <div class="flex justify-between">
+                <span class="font-extrabold text-indigo-950">MAI</span>
+                <span class="font-extrabold text-indigo-700">27,5%</span>
+              </div>
+
+              <div class="progress-track mt-3">
+                <div class="h-full rounded-full bg-indigo-600" style="width: 27.5%;"></div>
+              </div>
+
+              <p class="summary-value mt-2 text-sm font-bold text-indigo-950">
+                150,00 € · 2 incidencias
+              </p>
             </div>
+
             <div class="rounded-2xl border border-amber-100 bg-amber-50/60 p-4">
-              <div class="flex justify-between"><span class="font-extrabold text-amber-950">MC</span><span class="font-extrabold text-amber-700">76,7%</span></div>
-              <div class="progress-track mt-3"><div class="h-full rounded-full bg-amber-500" style="width: 76.7%;"></div></div>
-              <p class="summary-value mt-2 text-sm font-bold text-amber-950">495,00 € · 8 incidencias</p>
+              <div class="flex justify-between">
+                <span class="font-extrabold text-amber-950">MC</span>
+                <span class="font-extrabold text-amber-700">72,5%</span>
+              </div>
+
+              <div class="progress-track mt-3">
+                <div class="h-full rounded-full bg-amber-500" style="width: 72.5%;"></div>
+              </div>
+
+              <p class="summary-value mt-2 text-sm font-bold text-amber-950">
+                395,00 € · 7 incidencias
+              </p>
             </div>
           </div>
         </section>
+
         <aside class="xl:col-span-2 executive-card rounded-[28px] p-6 sm:p-7">
-          <p class="text-xs font-extrabold uppercase tracking-[.16em] text-slate-400">Lectura directiva</p>
+          <p class="text-xs font-extrabold uppercase tracking-[.16em] text-slate-400">
+            Lectura directiva
+          </p>
+
           <h2 class="mt-2 text-2xl font-extrabold">Hallazgos clave</h2>
+
           <div class="mt-6 space-y-5">
+
             <div class="border-l-4 border-amber-500 pl-4">
               <p class="text-2xl font-extrabold">7424 MCZ</p>
-              <p class="mt-1 text-sm leading-6 text-slate-600">Concentra 7 de las 10 incidencias y 450,00 € de exposición.</p>
+              <p class="mt-1 text-sm leading-6 text-slate-600">
+                Concentra 6 de las 9 incidencias y 350,00 € de exposición.
+              </p>
             </div>
+
             <div class="border-l-4 border-indigo-600 pl-4">
-              <p class="text-2xl font-extrabold">6 de 10</p>
-              <p class="mt-1 text-sm leading-6 text-slate-600">Las sanciones de velocidad se vinculan al mismo vehículo de MC.</p>
+              <p class="text-2xl font-extrabold">6 de 9</p>
+              <p class="mt-1 text-sm leading-6 text-slate-600">
+                Las sanciones de velocidad se vinculan al mismo vehículo de MC.
+              </p>
             </div>
+
+            <div class="border-l-4 border-slate-300 pl-4">
+              <p class="text-2xl font-extrabold">60,56 €</p>
+              <p class="mt-1 text-sm leading-6 text-slate-600">
+                Importe medio por incidencia registrada.
+              </p>
+            </div>
+          </div>
+
+          <div class="mt-7 rounded-2xl bg-slate-950 p-5 text-white">
+            <p class="text-xs font-extrabold uppercase tracking-wider text-slate-400">
+              Prioridad recomendada
+            </p>
+
+            <p class="mt-2 text-sm leading-6 text-slate-100">
+              Revisar la operativa y la sensibilización del conductor asignado a la matrícula
+              <strong>7424 MCZ</strong>.
+            </p>
           </div>
         </aside>
       </div>
     </section>
+
   </main>
+
+  <footer class="border-t border-slate-200 bg-white/70 py-6 text-center text-xs font-semibold text-slate-500">
+    Control de Sanciones · Informe ejecutivo confidencial · 2026
+  </footer>
 
   <script>
     let myChart = null;
+
     function showView(viewId) {
-      ["view-home", "view-mai", "view-mc", "view-summary"].forEach(id => {
+      const views = ["view-home", "view-mai", "view-mc", "view-summary"];
+
+      views.forEach(function (id) {
         document.getElementById(id).classList.add("hidden");
       });
+
       document.getElementById(viewId).classList.remove("hidden");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      if (viewId === "view-summary") { setTimeout(renderChart, 50); }
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      if (viewId === "view-summary") {
+        setTimeout(renderChart, 50);
+      }
     }
+
     function toggleAccordion(id) {
       const content = document.getElementById(id);
       const icon = document.getElementById("icon-" + id);
       const isHidden = content.classList.contains("hidden");
+
       content.classList.toggle("hidden");
-      if(icon) {
-        icon.style.display = "inline-block";
-        icon.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
-      }
+
+      icon.style.display = "inline-block";
+      icon.style.transition = "transform 0.2s ease";
+      icon.style.transform = isHidden ? "rotate(180deg)" : "rotate(0deg)";
     }
+
     function renderChart() {
       const canvas = document.getElementById("expenseChart");
-      if (!canvas) return;
-      if (myChart) { myChart.destroy(); }
-      myChart = new Chart(canvas.getContext("2d"), {
+
+      if (!canvas) {
+        return;
+      }
+
+      if (myChart) {
+        myChart.destroy();
+      }
+
+      const ctx = canvas.getContext("2d");
+
+      const centerText = {
+        id: "centerText",
+
+        afterDraw: function (chart) {
+          const area = chart.chartArea;
+          const x = (area.left + area.right) / 2;
+          const y = (area.top + area.bottom) / 2;
+
+          chart.ctx.save();
+
+          chart.ctx.textAlign = "center";
+          chart.ctx.fillStyle = "#667085";
+          chart.ctx.font = "700 11px Arial";
+          chart.ctx.fillText("TOTAL", x, y - 10);
+
+          chart.ctx.fillStyle = "#101828";
+          chart.ctx.font = "800 25px Arial";
+          chart.ctx.fillText("545 €", x, y + 20);
+
+          chart.ctx.restore();
+        }
+      };
+
+      myChart = new Chart(ctx, {
         type: "doughnut",
+
         data: {
           labels: ["MAI", "MC"],
+
           datasets: [{
-            data: [150, 495],
+            data: [150, 395],
             backgroundColor: ["#4f46e5", "#d97706"],
             borderColor: "#ffffff",
             borderWidth: 8,
@@ -404,21 +829,37 @@
             hoverOffset: 10
           }]
         },
+
         options: {
-          responsive: true, maintainAspectRatio: false, cutout: "72%",
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "72%",
+
           plugins: {
-            legend: { display: false },
+            legend: {
+              display: false
+            },
+
             tooltip: {
+              backgroundColor: "#101828",
+              padding: 12,
+
               callbacks: {
                 label: function (context) {
-                  return " " + context.label + ": " + context.raw.toLocaleString("es-ES", { minimumFractionDigits: 2 }) + " €";
+                  return " " + context.label + ": " +
+                    context.raw.toLocaleString("es-ES", {
+                      minimumFractionDigits: 2
+                    }) + " €";
                 }
               }
             }
           }
-        }
+        },
+
+        plugins: [centerText]
       });
     }
   </script>
+
 </body>
 </html>

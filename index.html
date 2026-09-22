@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Control Ejecutivo de Sanciones 2026</title>
+  <title>Control de Sanciones | Informe Ejecutivo 2026</title>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -27,17 +27,13 @@
     }
 
     body {
-      margin: 0;
-      font-family: "Manrope", Arial, sans-serif;
-      color: var(--ink);
+      font-family: "Manrope", sans-serif;
       background:
-        radial-gradient(circle at 7% 0%, rgba(79, 70, 229, 0.10), transparent 26rem),
-        radial-gradient(circle at 100% 15%, rgba(217, 119, 6, 0.09), transparent 24rem),
+        radial-gradient(circle at 7% 0%, rgba(79, 70, 229, 0.09), transparent 26rem),
+        radial-gradient(circle at 100% 15%, rgba(217, 119, 6, 0.08), transparent 24rem),
         var(--canvas);
-    }
-
-    .hidden {
-      display: none !important;
+      color: var(--ink);
+      margin: 0;
     }
 
     .brand-grid {
@@ -63,7 +59,7 @@
     }
 
     .incident-row {
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .incident-row:hover {
@@ -83,7 +79,7 @@
       border: 2px solid #24314f;
       border-radius: 6px;
       background: linear-gradient(180deg, #ffffff 0%, #f2f5fb 100%);
-      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.9), 0 3px 7px rgba(16,24,40,0.09);
+      box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.9), 0 3px 7px rgba(16, 24, 40, 0.09);
       color: #172554;
       font-family: "DM Mono", monospace;
       font-size: 0.88rem;
@@ -103,7 +99,7 @@
       justify-content: center;
       border-radius: 2px;
       background: #123b9c;
-      color: white;
+      color: #ffffff;
       font-family: Arial, sans-serif;
       font-size: 7px;
       letter-spacing: 0;
@@ -125,6 +121,10 @@
       position: relative;
     }
 
+    .hidden {
+      display: none !important;
+    }
+
     @media (max-width: 640px) {
       .plate {
         width: 104px;
@@ -139,7 +139,7 @@
 
   <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-7 sm:py-10">
 
-    <!-- PÁGINA PRINCIPAL -->
+    <!-- PANTALLA PRINCIPAL -->
     <section id="view-home">
 
       <header class="brand-grid rounded-[28px] border border-slate-200 bg-white/70 px-6 py-7 sm:px-9 sm:py-9 mb-6 overflow-hidden relative">
@@ -176,7 +176,6 @@
       </header>
 
       <section class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-
         <article class="md:col-span-2 rounded-[26px] bg-slate-950 p-6 sm:p-8 text-white shadow-xl overflow-hidden relative">
           <div class="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-indigo-500/25 blur-3xl"></div>
           <div class="absolute -left-16 -bottom-24 h-56 w-56 rounded-full bg-amber-500/15 blur-3xl"></div>
@@ -280,6 +279,7 @@
             <p class="text-sm font-extrabold text-amber-700">72,5% del total</p>
           </div>
         </button>
+
       </section>
     </section>
 
@@ -423,6 +423,7 @@
 
         <div class="p-5 sm:p-7 space-y-6">
 
+          <!-- MATRÍCULA 7424 MCZ -->
           <div>
             <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -446,7 +447,6 @@
                     <p class="font-extrabold text-slate-800">Estacionamiento sobre la acera</p>
                     <p class="mt-1 text-xs text-slate-500">03/09/2026 · Vía pública</p>
                   </div>
-
                   <div class="flex items-center gap-3">
                     <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">100,00 €</span>
                     <span id="icon-mc-1" class="text-slate-400">⌄</span>
@@ -469,7 +469,6 @@
                     </p>
                     <p class="mt-1 text-xs text-slate-500">03/09/2026 · Vía A-5, P.K.</p>
                   </div>
-
                   <div class="flex items-center gap-3">
                     <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
                     <span id="icon-mc-2" class="text-slate-400">⌄</span>
@@ -492,7 +491,6 @@
                     </p>
                     <p class="mt-1 text-xs text-slate-500">25/08/2026 · Vía A-1, P.K.</p>
                   </div>
-
                   <div class="flex items-center gap-3">
                     <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
                     <span id="icon-mc-3" class="text-slate-400">⌄</span>
@@ -515,7 +513,6 @@
                     </p>
                     <p class="mt-1 text-xs text-slate-500">02/08/2026 · Vía A-381, P.K.</p>
                   </div>
-
                   <div class="flex items-center gap-3">
                     <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
                     <span id="icon-mc-4" class="text-slate-400">⌄</span>
@@ -538,7 +535,6 @@
                     </p>
                     <p class="mt-1 text-xs text-slate-500">30/07/2026 · Vía A-381, P.K.</p>
                   </div>
-
                   <div class="flex items-center gap-3">
                     <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
                     <span id="icon-mc-5" class="text-slate-400">⌄</span>
@@ -563,7 +559,6 @@
                       31/01/2026 · Ubicación no especificada
                     </p>
                   </div>
-
                   <div class="flex items-center gap-3">
                     <span class="summary-value whitespace-nowrap font-extrabold text-rose-700">50,00 €</span>
                     <span id="icon-mc-7" class="text-slate-400">⌄</span>
@@ -580,6 +575,7 @@
             </div>
           </div>
 
+          <!-- MATRÍCULA 9082 NBT -->
           <div>
             <div class="mb-3 flex flex-wrap items-center justify-between gap-3">
               <div class="flex items-center gap-3">
@@ -644,15 +640,12 @@
               <p class="text-xs font-extrabold uppercase tracking-[.16em] text-slate-400">
                 Distribución del importe
               </p>
-
               <h2 class="mt-2 text-2xl font-extrabold">
                 Peso económico por sociedad
               </h2>
             </div>
 
-            <p class="summary-value text-xl font-extrabold text-slate-900">
-              545,00 €
-            </p>
+            <p class="summary-value text-xl font-extrabold text-slate-900">545,00 €</p>
           </div>
 
           <div class="chart-wrap mt-5">
@@ -690,6 +683,7 @@
                 395,00 € · 7 incidencias
               </p>
             </div>
+
           </div>
         </section>
 
@@ -722,6 +716,7 @@
                 Importe medio por incidencia registrada.
               </p>
             </div>
+
           </div>
 
           <div class="mt-7 rounded-2xl bg-slate-950 p-5 text-white">
@@ -735,6 +730,7 @@
             </p>
           </div>
         </aside>
+
       </div>
     </section>
 
@@ -781,9 +777,7 @@
     function renderChart() {
       const canvas = document.getElementById("expenseChart");
 
-      if (!canvas) {
-        return;
-      }
+      if (!canvas) return;
 
       if (myChart) {
         myChart.destroy();
@@ -793,8 +787,7 @@
 
       const centerText = {
         id: "centerText",
-
-        afterDraw: function (chart) {
+        afterDraw(chart) {
           const area = chart.chartArea;
           const x = (area.left + area.right) / 2;
           const y = (area.top + area.bottom) / 2;
@@ -803,11 +796,11 @@
 
           chart.ctx.textAlign = "center";
           chart.ctx.fillStyle = "#667085";
-          chart.ctx.font = "700 11px Arial";
+          chart.ctx.font = "700 11px Manrope";
           chart.ctx.fillText("TOTAL", x, y - 10);
 
           chart.ctx.fillStyle = "#101828";
-          chart.ctx.font = "800 25px Arial";
+          chart.ctx.font = "800 25px Manrope";
           chart.ctx.fillText("545 €", x, y + 20);
 
           chart.ctx.restore();
@@ -843,6 +836,16 @@
             tooltip: {
               backgroundColor: "#101828",
               padding: 12,
+
+              titleFont: {
+                family: "Manrope",
+                weight: "800"
+              },
+
+              bodyFont: {
+                family: "Manrope",
+                weight: "700"
+              },
 
               callbacks: {
                 label: function (context) {
